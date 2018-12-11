@@ -42,7 +42,7 @@ export default {
                 success()
             }
 
-        }).catch(() => {
+        }).catch((cansel) => {
             if (cansel){
                 cancel()
             }
@@ -64,9 +64,6 @@ export default {
                 success()
             }
         }).catch(() => {
-            if (cansel){
-                cancel()
-            }
             Message.info({
               type: 'info',
               duration: 1500,

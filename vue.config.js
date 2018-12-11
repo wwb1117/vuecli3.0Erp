@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require("webpack")
 const resolve = (dir) => path.join(__dirname, dir);
 module.exports = {
+	baseUrl: process.env.MY_ENV === 'test' ? 'https://dev.cdn.mamaqunaer.com/erp/' : 'https://cdn.mamaqunaer.com/erp/',
 	devServer: {
 		host: '0.0.0.0',
 		disableHostCheck: true,
@@ -36,5 +37,14 @@ module.exports = {
 			.set('utils', resolve('src/utils'))
 			.set('assets', resolve('src/assets'))
 			.set('components', resolve('src/components'))
+
+		config.module  //解决字体文件跨域问题
+			.rule('fonts')
+			.use('url-loader')
+			.loader('url-loader')
+			.tap(args => {
+				args.limit = 100000000000
+				return args
+			})
 	}
 }
